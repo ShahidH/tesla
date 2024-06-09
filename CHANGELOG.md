@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.0](https://www.github.com/ShahidH/tesla/compare/v1.0.0...v1.1.0) (2024-06-09)
+
+
+### Features
+
+* add hello world script 2 ([a58b438](https://www.github.com/ShahidH/tesla/commit/a58b4385422590bbda04adb9315e790c391646de))
+
 ## 1.0.0 (2024-06-09)
 
 
