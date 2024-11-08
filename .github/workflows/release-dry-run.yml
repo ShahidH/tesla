@@ -1,0 +1,40 @@
+name: Release Version Preview
+
+on:
+  pull_request:
+    types: [opened, edited, synchronize]
+    branches:
+      - main
+
+jobs:
+  release_preview:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Install release-please
+        run: npm install -g release-please
+
+      - name: Run release-please dry-run
+        id: release_please
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          release-please release-pr --repo-url ${{ github.repository }} --token ${{ secrets.GITHUB_TOKEN }} --dry-run > release_output.txt
+          version=$(grep -oP 'release \K\d+\.\d+\.\d+' release_output.txt || echo "Version not found")
+          echo "version=$version" >> $GITHUB_ENV
+
+      - name: Add dry-run version output to PR comment
+        uses: marocchino/sticky-pull-request-comment@v2
+        with:
+          header: release-please dry-run version
+          message: |
+            ## Release-please Dry Run
+            **Proposed Release Version:** ${{ env.version }}
