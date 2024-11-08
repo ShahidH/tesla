@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.4.0](https://github.com/ShahidH/tesla/compare/v1.3.0...v1.4.0) (2024-11-08)
+
+
+### Features
+
+* add hello world script ([e178c9e](https://github.com/ShahidH/tesla/commit/e178c9e79ed1adcda6d18af28ac84a15e31dba99))
+* add hello world script 10 ([a16760f](https://github.com/ShahidH/tesla/commit/a16760fca4809a3dbbde179b4c603977126bd7f0))
+* add hello world script 11 ([c261b61](https://github.com/ShahidH/tesla/commit/c261b61186c3395f076404816246024083a4cbfa))
+* add hello world script 6 ([13f749b](https://github.com/ShahidH/tesla/commit/13f749b7fb1cd41cf9be78c4c802685d58fdd9ee))
+* add hello world script 7 ([524f1b9](https://github.com/ShahidH/tesla/commit/524f1b93340c211549b698b51528990f1ab2421e))
+* add hello world script 8 ([a207855](https://github.com/ShahidH/tesla/commit/a207855bc1090ae329b8f4fe5dfc3bfb875eeae9))
+
 ## [1.3.0](https://github.com/ShahidH/tesla/compare/v1.2.0...v1.3.0) (2024-11-08)
 
 
