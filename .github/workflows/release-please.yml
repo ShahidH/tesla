@@ -1,19 +1,47 @@
+name: Create Release Branch with Changelog
+
 on:
+  workflow_dispatch:
+    inputs:
+      release_branch:
+        description: 'The release branch to create (e.g., release/v1.2.0)'
+        required: true
   push:
     branches:
-      - main
+      - 'release/*'   # Triggers on any branch starting with 'release/'
 
 permissions:
   contents: write
   pull-requests: write
 
-name: release-please
-
 jobs:
-  release-please:
+  release:
     runs-on: ubuntu-latest
     steps:
-      - uses: googleapis/release-please-action@v4
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          release-type: simple
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Install release-please
+        run: npm install -g release-please
+
+      - name: Determine Next Version and Create Release Branch
+        env:
+          GITHUB_TOKEN: ${{ secrets.MY_RELEASE_PLEASE_TOKEN }}
+        run: |
+          # Determine the next version
+          version=$(release-please version --json | jq -r '.release.version')
+          
+          # Define the release branch (use the input from workflow dispatch)
+          branch="${{ github.event.inputs.release_branch }}"
+          
+          # Create a new release branch with the updated changelog and version bump
+          git checkout -b "${branch}"
+          release-please release-pr --release-type node \
+            --target-branch "${branch}" \
+            --token "${{ secrets.GITHUB_TOKEN }}"
+          
+          # Push the release branch
+          git push origin "${branch}"
+
+      - name: Display Next Version
+        run: echo "Next version is ${version}"
